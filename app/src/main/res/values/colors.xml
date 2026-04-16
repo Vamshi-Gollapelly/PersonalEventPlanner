@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#6C63FF</color>
+    <color name="accentColor">#8E7CFF</color>
+    <color name="deleteColor">#E85D75</color>
+    <color name="backgroundColor">#F7F5FC</color>
+    <color name="primaryText">#1F1F2E</color>
+    <color name="secondaryText">#6B6B80</color>
+    <color name="hintColor">#9B9BB0</color>
+
+    <color name="bottom_nav_selected">#6C63FF</color>
+    <color name="bottom_nav_unselected">#9C9CB3</color>
+</resources>
