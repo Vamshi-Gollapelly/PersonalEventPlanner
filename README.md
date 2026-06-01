@@ -60,7 +60,7 @@ app/
 
 | Event List | Add Event |
 |---|---|
-| *(screenshot)* | *(screenshot)* |
+| ![Event List](event-list.png) | ![Add Event](add-event.png) |
 
 ---
 
