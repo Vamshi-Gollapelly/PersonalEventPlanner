@@ -1,58 +1,127 @@
-# Personal Event Planner App
+# Personal Event Planner
 
-## Overview
-This project is an Android application that helps users manage their personal events like meetings, trips, and daily tasks. The app allows users to add, view, update, and delete events easily. All the data is stored on the device using Room Database, so it remains saved even after closing the app.
+An Android application for managing personal events — meetings, trips, and daily tasks — with full CRUD functionality, local persistence, and a clean MVVM architecture.
+
+---
 
 ## Features
 
-### Add Event
-Users can create a new event by entering:
-- Title
-- Category (Work, Social, Travel, etc.)
-- Location
-- Date and Time
+- **Add events** — title, category (Work / Social / Travel / etc.), location, date & time
+- **View events** — all saved events sorted by date, nearest first
+- **Update events** — edit any existing event's details
+- **Delete events** — remove events with confirmation feedback
+- **Persistent storage** — data survives app close and device restart via Room Database
+- **Input validation** — empty title blocked, past dates rejected, toast feedback on all actions
 
-### View Events
-All saved events are shown on the main screen.  
-Events are automatically sorted by date so that the nearest events appear first.
+---
 
-### Update Event
-Users can edit any existing event and update details like time, location, or category.
+## Tech stack
 
-### Delete Event
-Users can remove events they no longer need.  
-A confirmation message is shown after deletion.
+![Java](https://img.shields.io/badge/Java-ED8B00?style=flat&logo=openjdk&logoColor=white)
+![Android](https://img.shields.io/badge/Android-3DDC84?style=flat&logo=android&logoColor=white)
+![Room](https://img.shields.io/badge/Room%20Database-3DDC84?style=flat&logo=android&logoColor=white)
 
-## Data Storage
-This app uses **Room Database** to store event data locally.  
-The data is not lost when the app is closed or the device is restarted.
+| Layer | Technology |
+|---|---|
+| Language | Java |
+| Architecture | MVVM (ViewModel + LiveData) |
+| Database | Room Database (SQLite abstraction) |
+| UI | RecyclerView, Bottom Navigation, Fragments |
+| Navigation | Android Navigation Component |
+| Build | Gradle |
 
-## Navigation
-The app uses **Bottom Navigation** with two main screens:
-- Event List
-- Add Event
+---
 
-Fragments are used instead of multiple activities to keep the app smooth and simple.
+## Architecture
 
-## Validation and Error Handling
-- Title cannot be empty
-- Date and time must be selected
-- Past dates are not allowed
-- Toast messages are used to show success and error messages
+```
+app/
+├── model/
+│   └── Event.java              # Room @Entity
+├── database/
+│   ├── EventDao.java           # DAO — CRUD queries
+│   └── EventDatabase.java      # Room database instance
+├── repository/
+│   └── EventRepository.java    # Single source of truth
+├── viewmodel/
+│   └── EventViewModel.java     # LiveData exposure to UI
+└── ui/
+    ├── EventListFragment.java  # Main screen — sorted event list
+    └── AddEventFragment.java   # Add / edit event form
+```
 
-## Technologies Used
-- Java
-- Android Studio
-- Room Database
-- RecyclerView
-- ViewModel and LiveData
-- Navigation Component
+**Data flow:** UI observes LiveData from ViewModel → ViewModel calls Repository → Repository queries Room DAO → Room writes/reads SQLite on background thread.
 
-## How to Run the App
-1. Clone this repository
-2. Open the project in Android Studio
-3. Let Gradle sync
-4. Run the app on an emulator or Android device
+---
+
+## Screenshots
+
+> Add screenshots here: drag images into this README on GitHub or commit them to an `assets/` folder
+
+| Event List | Add Event |
+|---|---|
+| *(screenshot)* | *(screenshot)* |
+
+---
+
+## Getting started
+
+### Prerequisites
+- Android Studio Hedgehog or later
+- Android SDK 26+
+- Java 11+
+
+### Run locally
+
+```bash
+# Clone the repo
+git clone https://github.com/Vamshi-Gollapelly/PersonalEventPlanner.git
+
+# Open in Android Studio
+# File → Open → select the cloned folder
+
+# Let Gradle sync automatically
+# Run on emulator (API 26+) or physical device
+```
+
+---
+
+## Database schema
+
+```sql
+CREATE TABLE events (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    title       TEXT    NOT NULL,
+    category    TEXT,
+    location    TEXT,
+    dateTime    INTEGER NOT NULL,   -- stored as Unix timestamp
+    createdAt   INTEGER
+);
+```
+
+---
+
+## Validation rules
+
+| Field | Rule |
+|---|---|
+| Title | Cannot be empty |
+| Date & Time | Must be selected; past dates rejected |
+| Category | Optional — defaults shown if blank |
+
+---
+
+## What I learned
+
+- Implementing MVVM cleanly so UI never directly touches the database
+- Using Room's DAO pattern to write type-safe SQL queries in Java
+- Observing LiveData so the event list updates automatically on any data change
+- Using the Navigation Component with Fragments instead of multiple Activities
+- Handling input validation and user feedback with Toast messages
+
+---
 
 ## Author
-Vamshi Gollapelly
+
+**Vamshi Gollapelly**
+[LinkedIn](https://linkedin.com/in/vamshigollapelly) · [GitHub](https://github.com/Vamshi-Gollapelly) · [Email](mailto:vamshigollapelly225@gmail.com)
