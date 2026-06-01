@@ -56,7 +56,7 @@ app/
 
 ## Screenshots
 
-> Add screenshots here: drag images into this README on GitHub or commit them to an `assets/` folder
+
 
 | Event List | Add Event |
 |---|---|
